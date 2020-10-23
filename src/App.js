@@ -1,3 +1,4 @@
+import { Button } from 'antd'
 import React, { useState } from 'react'
 import { useQuery } from "react-query"
 import { ReactQueryDevtools } from "react-query-devtools"
@@ -12,20 +13,26 @@ const App = () => {
   )
 }
 
-const fetchExchange = async () => {
-  const respone = await fetch('https://api.ratesapi.io/api/latest?base=CAD')
+const fetchExchange = async (currency) => {
+  const respone = await fetch(`https://aapi.ratesapi.io/api/latest?base=${currency}`)
   const data = await respone.json()
   return data;
 }
 
 function Exchange() {
-  const { status, data, error } = useQuery("latest", fetchExchange)
+  const [currency, setCurrency] = useState('USD')
+  const { status, data } = useQuery(currency, fetchExchange)
   if (status === "loading") return <div>loading...</div>
-  if (status === "error") return <div>error! {error}</div>
+  if (status === "error") return <div>there was an error... sorry</div>
   return (
-    <pre>
-      {JSON.stringify(data, null, 2)}
-    </pre>
+    <div>
+      <Button type="primary" style={{ margin: "1rem" }} onClick={() => setCurrency('USD')}>USD</Button>
+      <Button type="primary" style={{ margin: "1rem" }} onClick={() => setCurrency('CAD')}>CAD</Button>
+      <Button type="primary" style={{ margin: "1rem" }} onClick={() => setCurrency('EUR')}>USD</Button>
+      <pre>
+        {JSON.stringify(data, null, 2)}
+      </pre>
+    </div>
   )
 }
 

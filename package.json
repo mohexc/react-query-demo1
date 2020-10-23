@@ -11,6 +11,8 @@
     "craco-less": "^1.17.0",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
+    "react-query": "^2.25.2",
+    "react-query-devtools": "^2.6.0",
     "react-scripts": "3.4.3"
   },
   "scripts": {
